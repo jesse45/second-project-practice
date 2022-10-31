@@ -1,9 +1,7 @@
 name: Development
-
 on: [push]
 jobs: 
   run-linters:
-    name: Run linters
     runs-on: ubuntu-latest
 
     steps:
