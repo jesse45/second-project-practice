@@ -1,7 +1,7 @@
 name: Development
 on: [push]
 jobs: 
-  run-linters:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,5 +15,22 @@ jobs:
         run: npm ci
       - name: Run lint
         run: npm run lint
+      - name: Run test
+        run: npm run test
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
       - name: Run build
         run: npm run build
+
+        run: echo "${{ toJSON(github) }}"
